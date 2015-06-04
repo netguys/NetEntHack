@@ -1,0 +1,23 @@
+{
+  "name": "NetEntHack",
+  "main": "index.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/netguys/NetEntHack",
+  "description": "JS6+PIXI template",
+  "moduleType": [
+    "amd",
+    "es6",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pixi": "~3.0.6"
+  }
+}
