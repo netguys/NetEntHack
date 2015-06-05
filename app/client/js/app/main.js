@@ -1,46 +1,38 @@
-class GTAIrpin {
+var Render;
 
-    constructor() {
+const CONFIG = {
+    viewportWidth : 800,
+    viewportHeight : 800
+};
 
-        this.bunny = {};
-        this.renderer = PIXI.autoDetectRenderer(800, 600, {backgroundColor: 0x1099bb});
-        this.stage = new PIXI.Container();
-    }
+//Game initialization
+function initGame() {
 
-    start() {
-        document.body.appendChild(this.renderer.view);
 
-        // create a texture from an image path
-        var texture = PIXI.Texture.fromImage('img/cat.png');
+    var observer = new Observer();
+    var moduleLoader = new ModuleLoader(observer);
+    Render = new PIXIRender(observer, CONFIG.viewportWidth, CONFIG.viewportHeight, 0x1099bb);
 
-        // create a new Sprite using the texture
-        this.bunny = new PIXI.Sprite(texture);
 
-        // center the sprite's anchor point
-        this.bunny.anchor.x = 0.5;
-        this.bunny.anchor.y = 0.5;
 
-        // move the sprite to the center of the screen
-        this.bunny.position.x = 300;
-        this.bunny.position.y = 250;
+    //debugger;
 
-        this.stage.addChild(this.bunny);
+    moduleLoader.loadModules({
+        'background': {
+            controller: 'BackgroundController',
+            view: 'BackgroundView'
+        },
+        'player': {
+            controller: 'PlayerController',
+            view: 'PlayerView',
+            model : 'PlayerModel'
+        },
+        'userInput': {
+            controller: 'UserInputController'
+        }
+    });
 
-        // start animating
-        this.animate();
-    }
+    //console.log('before start');
 
-    animate() {
-
-        requestAnimationFrame(this.animate.bind(this));
-
-        // just for fun, let's rotate mr rabbit a little
-        this.bunny.rotation += 0.1;
-
-        // render the container
-        this.renderer.render(this.stage);
-    }
+    Render.start();
 }
-
-var mainGame = new GTAIrpin();
-

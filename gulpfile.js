@@ -1,4 +1,5 @@
 var gulp = require("gulp");
+var gutil = require('gulp-util');
 var sourcemaps = require("gulp-sourcemaps");
 var babel = require("gulp-babel");
 var concat = require("gulp-concat");
@@ -20,7 +21,7 @@ gulp.task("build", function () {
     return gulp.src(paths.scripts)
         .pipe(sourcemaps.init())
         .pipe(concat("build.js"))
-        .pipe(babel())
+        .pipe(babel().on('error', gutil.log))
         .pipe(sourcemaps.write("."))
         .pipe(gulp.dest("dist/client/js"))
         .pipe(livereload());
