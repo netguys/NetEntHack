@@ -28,7 +28,7 @@ class PlayerController extends Controller {
         events['notify:createUser'] = me.onCreateUser;
         events['notify:moveUser'] = me.onMoveUser;
         events['notify:removeUser'] = me.onRemoveUser;
-        events['notify:allUserReceived'] = me.onAllUserReceived;
+        //events['notify:allUserReceived'] = me.onAllUserReceived;
 
         events['notify:animateCycle'] = me.calculateMove;
         events['notify:userInput.moveForward'] = me.moveForward;
@@ -47,14 +47,14 @@ class PlayerController extends Controller {
 
     }
 
-    onAllUserReceived(allUsers) {
-        var me = this;
-
-        allUsers.forEach(function(userData){
-            me.onCreateUser(userData);
-        });
-
-    }
+    //onAllUserReceived(allUsers) {
+    //    var me = this;
+    //
+    //    allUsers.forEach(function(userData){
+    //        me.onCreateUser(userData);
+    //    });
+    //
+    //}
 
     onCreateUser(data) {
         var me = this;
