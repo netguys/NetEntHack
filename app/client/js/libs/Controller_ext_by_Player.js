@@ -60,16 +60,27 @@ class PlayerController extends Controller {
     onCreateUser(data) {
         var me = this;
 
-        if (!me.myID) {
-            me.myID = data.id;
-        }
+        //if (!me.myID) {
+        //    me.myID = data.id;
+        //}
+        //
+        //if (!me.remotePlayers[data.id]) {
+        //    me.remotePlayers[data.id] = data;
+        //    me.view.createPlayerItem(data);
+        //} else {
+        //    me.view.updatePlayer(data);
+        //}
 
-        if (!me.remotePlayers[data.id]) {
-            me.remotePlayers[data.id] = data;
-            me.view.createPlayerItem(data);
-        } else {
-            me.view.updatePlayer(data);
-        }
+        // Initialise the new player
+
+
+        me.view.createPlayerItem(data);
+
+        //var newPlayer = new Player(data.x, data.y);
+        //newPlayer.id = data.id;
+
+        // Add new player to the remote players array
+        //me.remotePlayers[data.id] = newPlayer;
 
         console.log(data);
     }

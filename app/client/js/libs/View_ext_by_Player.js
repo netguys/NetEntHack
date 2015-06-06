@@ -21,6 +21,7 @@ class PlayerView extends View {
             list = me.list,
             newPlayer = PIXI.Sprite.fromImage('img/cat.png');
 
+
         newPlayer.z = 10;
 
         newPlayer.anchor.x = 0.5;
@@ -33,6 +34,8 @@ class PlayerView extends View {
         Render.addToStage(list, newPlayer);
 
         me.players[playerData.id] = newPlayer;
+
+        return newPlayer;
     }
 
     updatePlayer(data) {
