@@ -5,8 +5,8 @@ var Player = function(startX, startY, startRotation, startHp, width, height) {
     var x = startX,
         y = startY,
         hp = startHp || 1,
-        width = width || 1,
-        height = height || 1,
+        width = width || 100,
+        height = height || 100,
         rotation = startRotation || 0,
 
         id;
@@ -52,6 +52,17 @@ var Player = function(startX, startY, startRotation, startHp, width, height) {
         hp = startHp;
     };
 
+    var getUpdate = function(){
+        return {
+            x : x,
+            y : y,
+            hp : hp,
+            width : width,
+            height : height,
+            rotation : rotation
+        };
+    };
+
     // Define which variables and methods can be accessed
     return {
         getX: getX,
@@ -64,6 +75,7 @@ var Player = function(startX, startY, startRotation, startHp, width, height) {
         setHp: setHp,
         getWidth : getWidth,
         getHeight : getHeight,
+        getUpdate : getUpdate,
         id: id
     }
 };
