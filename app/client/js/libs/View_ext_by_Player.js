@@ -42,7 +42,7 @@ class PlayerView extends View {
 
         newPlayer.position.x = playerData.x;
         newPlayer.position.y = playerData.y;
-        newPlayer.rotation = 0;
+        newPlayer.rotation = playerData.rotation;
 
         Render.addToStage(list, newPlayer);
 
@@ -58,6 +58,8 @@ class PlayerView extends View {
         if (player) {
             player.position.x = data.x;
             player.position.y = data.y;
+            player.scale.x = data.hp ? data.hp : 1;
+            player.scale.y = data.hp ? data.hp : 1;
             player.rotation = data.rotation ? data.rotation : 0;
         }
 
