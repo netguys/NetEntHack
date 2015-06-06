@@ -7,7 +7,7 @@ var Player = function(startX, startY, startRotation, startHp, width, height) {
         hp = startHp || 1,
         width = width || 1,
         height = height || 1,
-        rotation = startRotation,
+        rotation = startRotation || 0,
 
         id;
 
