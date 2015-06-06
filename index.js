@@ -114,7 +114,7 @@ function onClientDisconnect() {
 // New player has joined
 function onNewPlayer(data) {
     // Create a new player
-    var newPlayer = new Player(data.x, data.y);
+    var newPlayer = new Player(data.x, data.y, data.rotation, data.hp);
     newPlayer.id = this.id;
 
     // Broadcast new player to connected socket clients
@@ -122,7 +122,8 @@ function onNewPlayer(data) {
         id: newPlayer.id,
         x: newPlayer.getX(),
         y: newPlayer.getY(),
-        rotation : newPlayer.getRotation()
+        rotation : newPlayer.getRotation(),
+        hp : newPlayer.getHp()
     });
 
     // Send existing players to the new player
@@ -133,7 +134,8 @@ function onNewPlayer(data) {
             id: existingPlayer.id,
             x: existingPlayer.getX(),
             y: existingPlayer.getY(),
-            rotation : existingPlayer.getRotation()
+            rotation : existingPlayer.getRotation(),
+            hp : existingPlayer.getHp()
         });
     };
 
@@ -160,13 +162,15 @@ function onMovePlayer(data) {
     movePlayer.setX(data.x);
     movePlayer.setY(data.y);
     movePlayer.setRotation(data.rotation);
+    movePlayer.setHp(data.hp);
 
     // Broadcast updated position to connected socket clients
     this.broadcast.emit("move player", {
         id: movePlayer.id,
         x: movePlayer.getX(),
         y: movePlayer.getY(),
-        rotation : movePlayer.getRotation()
+        rotation : movePlayer.getRotation(),
+        hp: movePlayer.getHp()
     });
 };
 

@@ -1,10 +1,11 @@
 /**************************************************
  ** GAME PLAYER CLASS
  **************************************************/
-var Player = function(startX, startY, startRotation) {
+var Player = function(startX, startY, startRotation, startHp) {
     var x = startX,
         y = startY,
         rotation = startRotation,
+            hp = startHp,
         id;
 
     // Getters and setters
@@ -32,6 +33,14 @@ var Player = function(startX, startY, startRotation) {
         rotation = newRotation;
     };
 
+    var getHp = function() {
+        return hp;
+    };
+
+    var setHp = function(startHp) {
+        hp = startHp;
+    };
+
     // Define which variables and methods can be accessed
     return {
         getX: getX,
@@ -40,6 +49,8 @@ var Player = function(startX, startY, startRotation) {
         setY: setY,
         getRotation : getRotation,
         setRotation : setRotation,
+        getHp: getHp,
+        setHp: setHp,
         id: id
     }
 };
