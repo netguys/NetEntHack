@@ -34,7 +34,6 @@ function initGame() {
 
     localPlayer = moduleLoader._modules.player;
 
-
     // Initialise socket connection
     socket = io.connect("http://localhost", {port: 8000, transports: ["websocket"]});
 

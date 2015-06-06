@@ -23,7 +23,10 @@ class SoundController extends Controller {
     }
 
     onPlaySound(soundID, loop) {
-
+        var me = this,
+            sample = me.model.getSample(soundID);
+        sample.loop = loop || false;
+        sample.start(0);
     }
 
     onStopSound(soundID) {
