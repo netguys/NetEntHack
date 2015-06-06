@@ -112,7 +112,7 @@ function onClientDisconnect() {
     if (!removePlayer) {
         util.log("Player not found: "+this.id);
         return;
-    };
+    }
 
     // Remove player from players array
     players.splice(players.indexOf(removePlayer), 1);
@@ -175,23 +175,22 @@ function onMovePlayer(data) {
     movePlayer.setX(data.x);
     movePlayer.setY(data.y);
     movePlayer.setRotation(data.rotation);
-    movePlayer.setHp(data.hp);
 
     players.forEach(function(player){
         if(movePlayer.id === player.id) return;
-
-        if((movePlayer.getX() + movePlayer.getWidth() > player.getX()
-            && movePlayer.getX() + movePlayer.getWidth() < player.getX() + player.getWidth())
-            || (movePlayer.getX() > player.getX()
-            && movePlayer.getX() < player.getX() + player.getWidth()) 
+        if(((movePlayer.getX() + movePlayer.getWidth() >= player.getX()
+            && movePlayer.getX() + movePlayer.getWidth() <= player.getX() + player.getWidth())
+            || (movePlayer.getX() >= player.getX()
+            && movePlayer.getX() <= player.getX() + player.getWidth()))
         
-        && (movePlayer.getY() + movePlayer.getHeight() > player.getY()
-            && movePlayer.getY() + movePlayer.getHeight() < player.getY() + player.getHeight())
-            || (movePlayer.getY() > player.getY()
-            && movePlayer.getY() < player.getY() + player.getHeight())){
+        && ((movePlayer.getY() + movePlayer.getHeight() >= player.getY()
+            && movePlayer.getY() + movePlayer.getHeight() <= player.getY() + player.getHeight())
+            || (movePlayer.getY() >= player.getY()
+            && movePlayer.getY() <= player.getY() + player.getHeight()))){
 
             if(movePlayer.getHp() >= player.getHp()){
                 movePlayer.setHp(movePlayer.getHp() + player.getHp());
+                //player.setHp(0);
             }
         }
     });

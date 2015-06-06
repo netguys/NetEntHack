@@ -6,33 +6,9 @@ class PlayerView extends View {
 
     initAnimations() {
         var me = this,
-            list = Render.createList(),
-
-            //var    renderTexture = new PIXI.RenderTexture(Render, 534, 134);
-            //renderTexture.render(sprite);
-            //renderTexture.frame = (new PIXI.Rectangle(0,0,89,134));
-            ////var    texture = new PIXI.Texture(renderTexture);
-            player = PIXI.Sprite.fromImage('img/cat.png');
-
+            list = Render.createList();
 
         me.players = {};
-
-        me.model.storeData('initAnimationsDone', true);
-        player.z = 10;
-
-        player.anchor.x = 0.5;
-        player.anchor.y = 0.5;
-
-        player.position.x = me.model.readData('x');
-        player.position.y = me.model.readData('y');
-        player.rotation = me.model.readData('rotation');
-
-        //player.frame = new PIXI.Rectangle(0,0,89,134);
-
-        Render.addToStage(list, player);
-
-        me.player = player;
-
         me.list = list;
     }
 
@@ -54,7 +30,7 @@ class PlayerView extends View {
         newPlayer.position.y = playerData.y;
         newPlayer.rotation = playerData.rotation;
 
-        Render.addToStage(list, newPlayer);
+        Render.addToStage(this.list, newPlayer);
 
 
         me.players[playerData.id] = newPlayer;
@@ -67,6 +43,7 @@ class PlayerView extends View {
             player = me.players[data.id];
 
         if (player) {
+
             player.position.x = data.x;
             player.position.y = data.y;
             player.scale.x = data.hp ? data.hp : 1;
@@ -75,13 +52,33 @@ class PlayerView extends View {
         }
     }
 
+    createLocalPlayer (data) {
+        var player = PIXI.Sprite.fromImage('img/cat.png');
+
+
+        player.z = 10;
+
+        player.anchor.x = 0.5;
+        player.anchor.y = 0.5;
+
+        player.position.x = data.x;
+        player.position.y = data.y;
+        player.rotation = data.rotation;
+
+        player.width = data.width;
+        player.height = data.height;
+
+        Render.addToStage(this.list, player);
+
+        this.player = player;
+    }
+
     removePlayerItem(id){
         var me = this,
             list = me.list,
             player = me.players[id];
 
         Render.removeFromStage(list, player);
-
         delete me.players[id]
     }
 
@@ -89,12 +86,11 @@ class PlayerView extends View {
         var me = this,
             player = me.player;
 
-        //if (player) {
-            player.position.x = me.model.readData('x');
-            player.position.y = me.model.readData('y');
-            player.rotation = me.model.readData('rotation');
-        //}
+        if (!player) return;
 
+        player.position.x = me.model.readData('x');
+        player.position.y = me.model.readData('y');
+        player.rotation = me.model.readData('rotation');
 
     }
 }

@@ -14,7 +14,7 @@ class PlayerModel extends Model {
         me.data.step = 5;
 
         me.data.width = 200;
-        me.data.width = 200;
+        me.data.height = 200;
     }
 
     makeStep(correction) {
