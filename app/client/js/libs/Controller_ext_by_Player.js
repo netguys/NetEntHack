@@ -42,6 +42,11 @@ class PlayerController extends Controller {
 
     }
 
+    createLocalPlayer(data) {
+        this.view.createLocalPlayer(data);
+
+    }
+
     start() {
 
 

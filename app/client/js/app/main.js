@@ -2,8 +2,8 @@ var Render, observer;
 var socket, remotePlayers, localPlayer, moduleLoader;
 
 const CONFIG = {
-    viewportWidth: 800,
-    viewportHeight: 800
+    viewportWidth: window.innerWidth,
+    viewportHeight: window.innerHeight
 };
 
 //Game initialization
@@ -42,8 +42,6 @@ function initGame() {
     remotePlayers = [];
 
     setupSocketEvents();
-
-    //console.log('before start');
 
     initSound(moduleLoader._modules.sound, "json/audio.json", function() {console.log("sounds ready")});
 
@@ -95,8 +93,12 @@ function onAllPlayers(data) {
 function onSocketConnected(data) {
     console.log("Connected to socket server", data);
 
+    var data = {x: 100, y: 350, hp: 1, height : 250, width : 300};
+
+    moduleLoader._modules.player.createLocalPlayer(data);
+
     // Send local player data to the game server
-    socket.emit("new player", {x: 300, y: 300});
+    socket.emit("new player", data);
 };
 
 // Socket disconnected
@@ -121,47 +123,11 @@ function onNewPlayer(data) {
 
 // Move player
 function onMovePlayer(data) {
-    //var movePlayer = playerById(data.id);
-
-    // Player not found
-    //if (!movePlayer) {
-    //    console.log("Player not found: "+data.id);
-    //    return;
-    //};
-
-    //console.log('text', data);
-
     observer.fireEvent('notify:moveUser', data);
-
-    // Update player position
-    //movePlayer.setX(data.x);
-    //movePlayer.setY(data.y);
-};
+}
 
 // Remove player
 function onRemovePlayer(data) {
-    //var removePlayer = playerById(data.id);
-
-    // Player not found
-    //if (!removePlayer) {
-    //    console.log("Player not found: "+data.id);
-    //    return;
-    //};
-
     observer.fireEvent('notify:removeUser', data);
-
-    // Remove player from array
-    //remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
 };
-
-// Find player by ID
-//function playerById(id) {
-//    var i;
-//    for (i = 0; i < remotePlayers.length; i++) {
-//        if (remotePlayers[i].id == id)
-//            return remotePlayers[i];
-//    };
-//
-//    return false;
-//};
 
