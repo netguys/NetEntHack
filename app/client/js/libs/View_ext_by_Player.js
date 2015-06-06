@@ -7,12 +7,17 @@ class PlayerView extends View {
     initAnimations() {
         var me = this,
             list = Render.createList(),
-            player = PIXI.Sprite.fromImage('img/cat.png');
+
+            //var    renderTexture = new PIXI.RenderTexture(Render, 534, 134);
+            //renderTexture.render(sprite);
+            //renderTexture.frame = (new PIXI.Rectangle(0,0,89,134));
+            ////var    texture = new PIXI.Texture(renderTexture);
+            player = PIXI.Sprite.fromImage('img/run_spritesheet_0.png');
+
 
         me.players = {};
 
         me.model.storeData('initAnimationsDone', true);
-
         player.z = 10;
 
         player.anchor.x = 0.5;
@@ -21,6 +26,8 @@ class PlayerView extends View {
         player.position.x = me.model.readData('x');
         player.position.y = me.model.readData('y');
         player.rotation = me.model.readData('rotation');
+
+        //player.frame = new PIXI.Rectangle(0,0,89,134);
 
         Render.addToStage(list, player);
 
