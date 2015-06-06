@@ -7,6 +7,8 @@ class PlayerController extends Controller {
     constructor(view, model) {
         super(view, model);
 
+        this.myID = null;
+
         this.remotePlayers = {};
 
         this.buttonsState = {
@@ -24,8 +26,11 @@ class PlayerController extends Controller {
         events = super.setupEvents();
 
         events['notify:createUser'] = me.onCreateUser;
+        events['notify:moveUser'] = me.onMoveUser;
+        events['notify:removeUser'] = me.onRemoveUser;
+        events['notify:allUserReceived'] = me.onAllUserReceived;
 
-        events['notify:animateCycle'] = me.onAnimateCycle;
+        events['notify:animateCycle'] = me.calculateMove;
         events['notify:userInput.moveForward'] = me.moveForward;
         events['notify:userInput.moveBackward'] = me.moveBackward;
         events['notify:userInput.turnLeft'] = me.turnLeft;
@@ -42,60 +47,134 @@ class PlayerController extends Controller {
 
     }
 
-    onCreateUser(data) {
-        this.remotePlayers[data.id] = data;
-    }
-
-    onAnimateCycle() {
+    onAllUserReceived(allUsers) {
         var me = this;
 
-        //console.log('animate cycle');
+        allUsers.forEach(function(userData){
+            me.onCreateUser(userData);
+            console.log(userData);
+        });
 
-        //if (me.model && me.model.readData && me.view && me.view.updatePlayer && me.model.readData('initAnimationsDone') != true) {
-        //    return false;
-        //}
+    }
+
+    onCreateUser(data) {
+        var me = this;
+
+        if (!me.myID) {
+            me.myID = data.id;
+        }
+
+        if (!me.remotePlayers[data.id]) {
+            me.remotePlayers[data.id] = data;
+            me.view.createPlayerItem(data);
+        } else {
+            me.view.updatePlayer(data);
+        }
+
+        console.log(data);
+    }
+
+    onMoveUser(data) {
+        var me = this;
+
+        //console.log(data);
+        me.view.updatePlayer(data);
+    }
+
+    onRemoveUser(data) {
+        var me = this;
+
+        delete me.remotePlayers[data.id];
+        me.view.removePlayerItem(data.id);
+
+    }
+
+    calculateMove() {
+        var me = this,
+            changed = false;
 
         if (me.buttonsState.forward) {
             me.model.makeStep(1);
+            changed = true;
         }
 
         if (me.buttonsState.backward) {
             me.model.makeStep(-1);
+            changed = true;
         }
 
         if (me.buttonsState.left) {
             me.model.turnPlayer(-1);
+            changed = true;
         }
 
         if (me.buttonsState.right) {
             me.model.turnPlayer(1);
+            changed = true;
         }
 
-        me.view.updatePlayer();
+        me.view.updateMe(me.myID);
+
+        if (changed) {
+            me.sendMove();
+        }
+
+
     }
 
     moveForward(state) {
+        //var me = this;
         this.buttonsState.forward = state;
+        //me.calculateMove();
+        //me.sendMove();
     }
 
     moveBackward(state) {
+        //var me = this;
         this.buttonsState.backward = state;
+        //me.calculateMove();
+        //me.sendMove();
     }
 
     turnLeft(state) {
+        //var me = this;
         this.buttonsState.left = state;
+        //me.calculateMove();
+        //me.sendMove();
     }
 
     turnRight(state) {
+        //var me = this;
         this.buttonsState.right = state;
+        //me.calculateMove();
+        //me.sendMove();
+    }
+
+    sendMove() {
+        var me = this;
+
+        socket.emit("move player", {
+            id: me.myID,
+            x: me.model.x,
+            y: me.model.y,
+            rotation: me.model.rotation
+        });
+
+        //console.log(
+        //    {
+        //        x: me.model.x,
+        //        y: me.model.y,
+        //        rotation : me.model.rotation
+        //    }
+        //);
     }
 
 
-    getX() {
-        return this.model.data.x;
-    }
-
-    getY() {
-        return this.model.data.y;
-    }
+    //getX() {
+    //    return this.model.data.x;
+    //}
+    //
+    //getY() {
+    //    return this.model.data.y;
+    //}
 }

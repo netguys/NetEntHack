@@ -18,6 +18,13 @@ class PIXIRender {
         stage.children.sort(me.depthCompare);
     }
 
+    removeFromStage(stage, item) {
+        var me = this;
+
+        stage.removeChild(item);
+        stage.children.sort(me.depthCompare);
+    }
+
     createList(z) {
         var me = this,
             newList = new PIXI.Container();

@@ -37,10 +37,12 @@ class Controller {
 
         if (me.model['setupData'] !== undefined) {
             me.model.setupData();
+            me.view.controller = me;
         }
 
         if (me.view['initAnimations'] !== undefined) {
             me.view.initAnimations();
+            me.view.controller = me;
         }
 
         me.start();
