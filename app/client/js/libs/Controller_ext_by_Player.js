@@ -7,6 +7,8 @@ class PlayerController extends Controller {
     constructor(view, model) {
         super(view, model);
 
+        this.remotePlayers = {};
+
         this.buttonsState = {
             forward: false,
             backward: false,
@@ -20,6 +22,8 @@ class PlayerController extends Controller {
             events;
 
         events = super.setupEvents();
+
+        events['notify:createUser'] = me.onCreateUser;
 
         events['notify:animateCycle'] = me.onAnimateCycle;
         events['notify:userInput.moveForward'] = me.moveForward;
@@ -36,6 +40,10 @@ class PlayerController extends Controller {
     start() {
 
 
+    }
+
+    onCreateUser(data) {
+        this.remotePlayers[data.id] = data;
     }
 
     onAnimateCycle() {

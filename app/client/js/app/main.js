@@ -1,4 +1,4 @@
-var Render;
+var Render, observer;
 var socket, remotePlayers, localPlayer;
 
 const CONFIG = {
@@ -8,7 +8,7 @@ const CONFIG = {
 
 //Game initialization
 function initGame() {
-    var observer = new Observer();
+    observer = new Observer();
     var moduleLoader = new ModuleLoader(observer);
     Render = new PIXIRender(observer, CONFIG.viewportWidth, CONFIG.viewportHeight, 0x1099bb);
 
@@ -78,12 +78,16 @@ function onSocketDisconnect() {
 function onNewPlayer(data) {
     console.log("New player connected: "+data.id);
 
-    // Initialise the new player
-    var newPlayer = new Player(data.x, data.y);
-    newPlayer.id = data.id;
+    observer.fireEvent('notify:createUser', data);
 
+
+
+    // Initialise the new player
+    //var newPlayer = new Player(data.x, data.y);
+    //newPlayer.id = data.id;
+    //
     // Add new player to the remote players array
-    remotePlayers.push(newPlayer);
+    //remotePlayers.push(newPlayer);
 };
 
 // Move player
