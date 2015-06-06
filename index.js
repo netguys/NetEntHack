@@ -49,8 +49,6 @@ var setEventHandlers = function() {
 function onSocketConnection(client) {
     util.log("New player has connected: "+client.id);
 
-    this.emit('all players', players || []);
-
     // Listen for client disconnected
     client.on("disconnect", onClientDisconnect);
 
@@ -59,7 +57,6 @@ function onSocketConnection(client) {
 
     // Listen for move player message
     client.on("move player", onMovePlayer);
-
 };
 
 // Socket client has disconnected
@@ -96,10 +93,6 @@ function onNewPlayer(data) {
         existingPlayer = players[i];
         this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY()});
     };
-
-    newPlayer.x = data.x;
-
-    newPlayer.y = data.y;
 
     // Add new player to the players array
     players.push(newPlayer);
