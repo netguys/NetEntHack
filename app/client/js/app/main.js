@@ -2,8 +2,8 @@ var Render, observer;
 var socket, remotePlayers, localPlayer, moduleLoader;
 
 const CONFIG = {
-    viewportWidth: window.innerWidth,
-    viewportHeight: window.innerHeight
+    viewportWidth: 1280,
+    viewportHeight: 720
 };
 
 //Game initialization

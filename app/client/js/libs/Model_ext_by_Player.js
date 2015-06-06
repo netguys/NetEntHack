@@ -19,17 +19,31 @@ class PlayerModel extends Model {
             {x:183,y:0,width:61,height:56},
             {x:244,y:0,width:61,height:56}
         ];
-
-
+        me.data.playerImage = {
+            image : 'img/2.png',
+            width : 309,
+            height : 56
+        };
         me.data.width = 200;
         me.data.height = 200;
     }
 
     makeStep(correction) {
-        var me = this;
+        var me = this,
+            changedX = me.data.x + me.data.step * Math.cos(me.data.rotation) * correction,
+            changedY = me.data.y + me.data.step * Math.sin(me.data.rotation) * correction,
+            imageOffsetX = (me.data.playerImage.width / 5) / 2,
+            imageOffsetY = me.data.playerImage.height / 2;
 
-        me.data.x = me.data.x + me.data.step * Math.cos(me.data.rotation) * correction;
-        me.data.y = me.data.y + me.data.step * Math.sin(me.data.rotation) * correction;
+        if (
+            changedX >= CONFIG.viewportWidth - imageOffsetX  ||
+            changedX <= imageOffsetX ||
+            changedY >= CONFIG.viewportHeight - imageOffsetY||
+            changedY <= imageOffsetX
+        ) return;
+
+        me.data.x = changedX;
+        me.data.y = changedY;
     }
 
     turnPlayer(correction){

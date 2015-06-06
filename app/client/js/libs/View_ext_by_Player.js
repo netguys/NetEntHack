@@ -15,10 +15,11 @@ class PlayerView extends View {
     createPlayerItem(playerData) {
         var me = this,
             list = Render.createList(),
-            baseTexture = PIXI.BaseTexture.fromImage('img/2.png');
+            imageConf = me.model.readData('playerImage'),
+            baseTexture = PIXI.BaseTexture.fromImage(imageConf.image);
 
-        baseTexture.width = 309;
-        baseTexture.height = 56;
+        baseTexture.width = imageConf.width;
+        baseTexture.height = imageConf.height;
 
 
         var texture = new PIXI.Texture(baseTexture),
@@ -81,10 +82,11 @@ class PlayerView extends View {
 
     createLocalPlayer (data) {
         var me = this,
-            baseTexture = PIXI.BaseTexture.fromImage('img/2.png');
+            imageConf = me.model.readData('playerImage'),
+            baseTexture = PIXI.BaseTexture.fromImage(imageConf.image);
 
-        baseTexture.width = 309;
-        baseTexture.height = 56;
+        baseTexture.width = imageConf.width;
+        baseTexture.height = imageConf.height;
 
 
         var texture = new PIXI.Texture(baseTexture),
