@@ -22,10 +22,10 @@ class SoundController extends Controller {
         return events;
     }
 
-    onPlaySound(soundID, loop) {
+    onPlaySound(params) {
         var me = this,
-            sample = me.model.getSample(soundID);
-        sample.loop = loop || false;
+            sample = me.model.getSample(params.soundID);
+        sample.loop = params.loop || false;
         sample.start(0);
     }
 

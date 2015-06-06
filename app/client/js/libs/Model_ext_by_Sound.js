@@ -53,7 +53,8 @@ class SoundModel extends Model {
     _onSoundDecoded(callback) {
         var me = this;
         me._soundsLoaded++;
-        if (me._soundsLoaded === me._sounds._soundsToLoad) {
+        if (me._soundsLoaded === me._soundsToLoad) {
+            console.log(callback);
             callback();
         }
     }
