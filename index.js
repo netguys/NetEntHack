@@ -97,6 +97,10 @@ function onNewPlayer(data) {
         this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY()});
     };
 
+    newPlayer.x = data.x;
+
+    newPlayer.y = data.y;
+
     // Add new player to the players array
     players.push(newPlayer);
 };
