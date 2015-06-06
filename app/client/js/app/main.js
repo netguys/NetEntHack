@@ -45,7 +45,9 @@ function initGame() {
 
     //console.log('before start');
 
-    initSound(moduleLoader._modules.sound, "json/audio.json", Render.start);
+    initSound(moduleLoader._modules.sound, "json/audio.json", function() {console.log("sounds ready")});
+
+    Render.start();
 }
 
 function initSound(SoundModule, configUrl, callback) {
