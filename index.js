@@ -18,7 +18,7 @@ var socket,		// Socket controller
 /**************************************************
  ** GAME INITIALISATION
  **************************************************/
-function init() {
+    function init() {
     // Create an empty array to store players
     players = [];
 
@@ -37,7 +37,7 @@ function init() {
     // Start listening for events
     setEventHandlers();
 
-    startUpdateLoop();
+    //startUpdateLoop();
 
 };
 
@@ -153,10 +153,10 @@ function onNewPlayer(data) {
     // Add new player to the players array
     players.push(newPlayer);
 
-    if(players.length === 1){
-        initBot.apply(this);
-        connContext = this;
-    }
+    //if(players.length === 1){
+    //    initBot.apply(this);
+    //    connContext = this;
+    //}
 };
 
 // Player has moved
