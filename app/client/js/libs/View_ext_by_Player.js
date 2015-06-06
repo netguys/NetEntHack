@@ -12,7 +12,7 @@ class PlayerView extends View {
             //renderTexture.render(sprite);
             //renderTexture.frame = (new PIXI.Rectangle(0,0,89,134));
             ////var    texture = new PIXI.Texture(renderTexture);
-            player = PIXI.Sprite.fromImage('img/run_spritesheet_0.png');
+            player = PIXI.Sprite.fromImage('img/cat.png');
 
 
         me.players = {};
