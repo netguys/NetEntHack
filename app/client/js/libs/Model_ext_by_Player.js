@@ -13,10 +13,11 @@ class PlayerModel extends Model {
         me.data.rotationSpeed = 0.1;
         me.data.step = 5;
         me.data.frames = [
-            {x:0,y:0,width:89,height:134},
-            {x:89,y:0,width:89,height:134},
-            {x:178,y:0,width:89,height:134},
-            {x:267,y:0,width:89,height:134}
+            {x:0,y:0,width:61,height:56},
+            {x:61,y:0,width:61,height:56},
+            {x:122,y:0,width:61,height:56},
+            {x:183,y:0,width:61,height:56},
+            {x:244,y:0,width:61,height:56}
         ];
 
 

@@ -15,10 +15,10 @@ class PlayerView extends View {
     createPlayerItem(playerData) {
         var me = this,
             list = Render.createList(),
-            baseTexture = PIXI.BaseTexture.fromImage('img/run_spritesheet_0.png');
+            baseTexture = PIXI.BaseTexture.fromImage('img/2.png');
 
-        baseTexture.width = 534;
-        baseTexture.height = 134;
+        baseTexture.width = 309;
+        baseTexture.height = 56;
 
 
         var texture = new PIXI.Texture(baseTexture),
@@ -80,29 +80,11 @@ class PlayerView extends View {
     }
 
     createLocalPlayer (data) {
-        //var player = PIXI.Sprite.fromImage('img/cat.png');
-        //
-        //
-        //player.z = 10;
-        //
-        //player.anchor.x = 0.5;
-        //player.anchor.y = 0.5;
-        //
-        //player.position.x = data.x;
-        //player.position.y = data.y;
-        //player.rotation = data.rotation;
-        //
-        //player.width = data.width;
-        //player.height = data.height;
-        //
-        //Render.addToStage(this.list, player);
-        //
-        //this.player = player;
         var me = this,
-            baseTexture = PIXI.BaseTexture.fromImage('img/run_spritesheet_0.png');
+            baseTexture = PIXI.BaseTexture.fromImage('img/2.png');
 
-        baseTexture.width = 534;
-        baseTexture.height = 134;
+        baseTexture.width = 309;
+        baseTexture.height = 56;
 
 
         var texture = new PIXI.Texture(baseTexture),
