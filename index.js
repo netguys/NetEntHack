@@ -3,7 +3,8 @@
  **************************************************/
 var util = require("util"),					// Utility resources (logging, object inspection, etc)
     io = require("socket.io"),				// Socket.IO
-    Player = require("./Player").Player;	// Player class
+    Player = require("./Player").Player,// Player class
+    Bot = require("./Bot").Bot;	// Bot class
 
 
 /**************************************************
@@ -36,21 +37,17 @@ function init() {
     setEventHandlers();
 
     startUpdateLoop();
+
 };
 
-var initBots = function(){
-    var newPlayer = new Bot(data.x, data.y);
-    newPlayer.id = this.id;
+var initBot = function(){
+    var newPlayer = new Bot(300, 300);
+    newPlayer.id = "bot:" + players.length;
 
     // Broadcast new player to connected socket clients
     this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY()});
 
-    // Send existing players to the new player
-    var i, existingPlayer;
-    for (i = 0; i < players.length; i++) {
-        existingPlayer = players[i];
-        this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY()});
-    };
+    newPlayer.updateCallback = onMovePlayer.bind(this);
 
     // Add new player to the players array
     players.push(newPlayer);
@@ -111,6 +108,7 @@ function onClientDisconnect() {
 
     // Broadcast removed player to connected socket clients
     this.broadcast.emit("remove player", {id: this.id});
+
 };
 
 // New player has joined
@@ -131,6 +129,10 @@ function onNewPlayer(data) {
 
     // Add new player to the players array
     players.push(newPlayer);
+
+    if(players.length === 1){
+        initBot.apply(this);
+    }
 };
 
 // Player has moved

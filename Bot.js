@@ -15,13 +15,14 @@ var Bot = function (startX, startY, center) {
     proto.update = function (dt) {
         var x, y;
         alpha += (speed * dt / 1000);
-        x = center.x + rad * Math.cos(alpha);
-        y = center.y + rad * Math.sin(alpha);
+        x = Math.floor(center.x + rad * Math.cos(alpha));
+        y = Math.floor(center.y + rad * Math.sin(alpha));
         proto.setX(x);
         proto.setY(y);
 
         alpha = alpha % 360;
-        console.log("BOT COORDS:", x, y);
+
+        this.updateCallback({x : x, y : y})
     };
 
     return proto;
