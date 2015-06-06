@@ -21,8 +21,6 @@ var Bot = function (startX, startY, center) {
         proto.setY(y);
 
         alpha = alpha % 360;
-
-        this.updateCallback({x : x, y : y})
     };
 
     return proto;

@@ -11,6 +11,7 @@ var util = require("util"),					// Utility resources (logging, object inspection
  ** GAME VARIABLES
  **************************************************/
 var socket,		// Socket controller
+    connContext,
     players;	// Array of connected players
 
 
@@ -44,10 +45,12 @@ var initBot = function(){
     var newPlayer = new Bot(300, 300);
     newPlayer.id = "bot:" + players.length;
 
+    console.info("bot authorize", newPlayer.id);
     // Broadcast new player to connected socket clients
     this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY()});
 
-    newPlayer.updateCallback = onMovePlayer.bind(this);
+    //newPlayer.updateCallback = onMovePlayer.bind(this);
+
 
     // Add new player to the players array
     players.push(newPlayer);
@@ -71,6 +74,14 @@ var startUpdateLoop = function(){
         players.forEach(function(player, index){
             if(player.update){
                 player.update(dt);
+                if(connContext){
+                    connContext.broadcast.emit("move player", {
+                        id: player.id,
+                        x: player.getX(),
+                        y: player.getY(),
+                        rotation : player.getRotation()
+                    });
+                }
             }
         });
     }, dt);
@@ -142,11 +153,13 @@ function onNewPlayer(data) {
 
     if(players.length === 1){
         initBot.apply(this);
+        connContext = this;
     }
 };
 
 // Player has moved
 function onMovePlayer(data) {
+    var me = this;
     // Find player in array
     var movePlayer = playerById(this.id);
 
@@ -168,6 +181,7 @@ function onMovePlayer(data) {
         y: movePlayer.getY(),
         rotation : movePlayer.getRotation()
     });
+
 };
 
 
