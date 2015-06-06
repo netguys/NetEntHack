@@ -1,7 +1,7 @@
 {
   "name": "netEntHack",
   "version": "0.0.0",
-  "description": "",
+  "description": "KOTIK",
   "main": "index.js",
   "dependencies": {
     "connect": "^3.3.5",
@@ -25,5 +25,9 @@
     "start": "bower install && node index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/netguys/NetEntHack.git"
+  }
 }
