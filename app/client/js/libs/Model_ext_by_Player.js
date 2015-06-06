@@ -12,6 +12,9 @@ class PlayerModel extends Model {
         me.data.rotation = 0;
         me.data.rotationSpeed = 0.1;
         me.data.step = 5;
+
+        me.data.width = 200;
+        me.data.width = 200;
     }
 
     makeStep(correction) {
@@ -37,6 +40,14 @@ class PlayerModel extends Model {
 
     get rotation(){
         return this.data.rotation;
+    }
+
+    get width() {
+        return this.data.width;
+    }
+
+    get height() {
+        return this.data.height;
     }
 
 

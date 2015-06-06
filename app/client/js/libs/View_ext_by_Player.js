@@ -41,8 +41,6 @@ class PlayerView extends View {
             list = me.list,
             newPlayer = PIXI.Sprite.fromImage('img/cat.png');
 
-        //window.uu = newPlayer;
-        //debugger;
 
         newPlayer.width = playerData.width;
         newPlayer.height = playerData.height;
@@ -57,6 +55,7 @@ class PlayerView extends View {
         newPlayer.rotation = playerData.rotation;
 
         Render.addToStage(list, newPlayer);
+
 
         me.players[playerData.id] = newPlayer;
 
@@ -74,8 +73,6 @@ class PlayerView extends View {
             player.scale.y = data.hp ? data.hp : 1;
             player.rotation = data.rotation ? data.rotation : 0;
         }
-
-
     }
 
     removePlayerItem(id){

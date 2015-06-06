@@ -7,7 +7,7 @@ class PlayerController extends Controller {
     constructor(view, model) {
         super(view, model);
 
-        this.myID = null;
+        //this.myID = null;
 
         this.remotePlayers = {};
 
@@ -59,27 +59,8 @@ class PlayerController extends Controller {
     onCreateUser(data) {
         var me = this;
 
-        //if (!me.myID) {
-        //    me.myID = data.id;
-        //}
-        //
-        //if (!me.remotePlayers[data.id]) {
-        //    me.remotePlayers[data.id] = data;
-        //    me.view.createPlayerItem(data);
-        //} else {
-        //    me.view.updatePlayer(data);
-        //}
-
-        // Initialise the new player
-
-
         me.view.createPlayerItem(data);
 
-        //var newPlayer = new Player(data.x, data.y);
-        //newPlayer.id = data.id;
-
-        // Add new player to the remote players array
-        //me.remotePlayers[data.id] = newPlayer;
 
         console.log(data);
     }
@@ -129,35 +110,22 @@ class PlayerController extends Controller {
             me.sendMove();
         }
 
-
     }
 
     moveForward(state) {
-        //var me = this;
         this.buttonsState.forward = state;
-        //me.calculateMove();
-        //me.sendMove();
     }
 
     moveBackward(state) {
-        //var me = this;
         this.buttonsState.backward = state;
-        //me.calculateMove();
-        //me.sendMove();
     }
 
     turnLeft(state) {
-        //var me = this;
         this.buttonsState.left = state;
-        //me.calculateMove();
-        //me.sendMove();
     }
 
     turnRight(state) {
-        //var me = this;
         this.buttonsState.right = state;
-        //me.calculateMove();
-        //me.sendMove();
     }
 
     sendMove() {
@@ -167,24 +135,10 @@ class PlayerController extends Controller {
             id: me.myID,
             x: me.model.x,
             y: me.model.y,
-            rotation: me.model.rotation
+            rotation: me.model.rotation,
+            width : me.model.width,
+            height : me.model.height
         });
-
-        //console.log(
-        //    {
-        //        x: me.model.x,
-        //        y: me.model.y,
-        //        rotation : me.model.rotation
-        //    }
-        //);
     }
 
-
-    //getX() {
-    //    return this.model.data.x;
-    //}
-    //
-    //getY() {
-    //    return this.model.data.y;
-    //}
 }
