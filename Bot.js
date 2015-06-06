@@ -10,7 +10,7 @@ var Bot = function (startX, startY, center) {
         alpha = 0,
         speed = 5;//deg per second
 
-    var proto = new Player(startX, startY);
+    var proto = new Player.apply(this, arguments);
 
     proto.update = function (dt) {
         var x, y;

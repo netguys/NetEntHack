@@ -177,13 +177,34 @@ function onMovePlayer(data) {
     movePlayer.setRotation(data.rotation);
     movePlayer.setHp(data.hp);
 
+    players.forEach(function(player){
+        if(movePlayer.id === player.id) return;
+
+        if((movePlayer.getX() + movePlayer.getWidth() > player.getX()
+            && movePlayer.getX() + movePlayer.getWidth() < player.getX() + player.getWidth())
+            || (movePlayer.getX() > player.getX()
+            && movePlayer.getX() < player.getX() + player.getWidth()) 
+        
+        && (movePlayer.getY() + movePlayer.getHeight() > player.getY()
+            && movePlayer.getY() + movePlayer.getHeight() < player.getY() + player.getHeight())
+            || (movePlayer.getY() > player.getY()
+            && movePlayer.getY() < player.getY() + player.getHeight())){
+
+            if(movePlayer.getHp() >= player.getHp()){
+                movePlayer.setHp(movePlayer.getHp() + player.getHp());
+            }
+        }
+    });
+
     // Broadcast updated position to connected socket clients
     this.broadcast.emit("move player", {
         id: movePlayer.id,
         x: movePlayer.getX(),
         y: movePlayer.getY(),
         rotation : movePlayer.getRotation(),
-        hp: movePlayer.getHp()
+        hp: movePlayer.getHp(),
+        width : movePlayer.getWidth(),
+        height : movePlayer.getHeight()
     });
 
 };

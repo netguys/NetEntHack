@@ -1,11 +1,14 @@
 /**************************************************
  ** GAME PLAYER CLASS
  **************************************************/
-var Player = function(startX, startY, startRotation, startHp) {
+var Player = function(startX, startY, startRotation, startHp, width, height) {
     var x = startX,
         y = startY,
+        hp = startHp || 1,
+        width = width || 1,
+        height = height || 1,
         rotation = startRotation,
-            hp = startHp,
+
         id;
 
     // Getters and setters
@@ -15,6 +18,14 @@ var Player = function(startX, startY, startRotation, startHp) {
 
     var getY = function() {
         return y;
+    };
+
+    var getWidth = function() {
+        return width * hp;
+    };
+
+    var getHeight = function() {
+        return height * hp;
     };
 
     var setX = function(newX) {
@@ -51,6 +62,8 @@ var Player = function(startX, startY, startRotation, startHp) {
         setRotation : setRotation,
         getHp: getHp,
         setHp: setHp,
+        getWidth : getWidth,
+        getHeight : getHeight,
         id: id
     }
 };
