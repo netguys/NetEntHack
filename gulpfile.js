@@ -10,12 +10,15 @@ var paths = {
     scripts: [
         'app/client/js/libs/**/*.js',
         'app/client/js/app/**/*.js'
+
     ],
-    images: 'app/client/img/**/*'
+    images: 'app/client/img/**/*',
+    json : 'app/client/res/*.json',
+    audio:  'app/client/res/audio/*'
 };
 
 
-gulp.task('default',  ['build', 'images', 'htmlCompile', 'watch']);
+gulp.task('default',  ['build', 'images',  'json', 'htmlCompile', 'watch']);
 
 gulp.task("build", function () {
     return gulp.src(paths.scripts)
@@ -40,6 +43,12 @@ gulp.task('images', function() {
     return gulp.src(paths.images)
         // Pass in options to the task
         .pipe(gulp.dest('dist/client/img'));
+});
+
+gulp.task('json', function() {
+    return gulp.src(paths.json)
+        // Pass in options to the task
+        .pipe(gulp.dest('dist/client/json'));
 });
 
 // Rerun the task when a file changes

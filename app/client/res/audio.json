@@ -1,0 +1,6 @@
+{
+  "audio": {
+    "ambiance": "../../app/client/res/audio/251462__staticpony1__sick-dance-bass.wav",
+    "move" : "../../app/client/res/audio/145242__nathanaelj83__water-step.wav"
+  }
+}

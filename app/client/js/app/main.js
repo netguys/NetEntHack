@@ -1,15 +1,15 @@
 var Render, observer;
-var socket, remotePlayers, localPlayer;
+var socket, remotePlayers, localPlayer, moduleLoader;
 
 const CONFIG = {
-    viewportWidth: window.innerWidth,
-    viewportHeight: window.innerHeight
+    viewportWidth: 800,
+    viewportHeight: 800
 };
 
 //Game initialization
 function initGame() {
     observer = new Observer();
-    var moduleLoader = new ModuleLoader(observer);
+    moduleLoader = new ModuleLoader(observer);
     Render = new PIXIRender(observer, CONFIG.viewportWidth, CONFIG.viewportHeight, 0x1099bb);
 
 
@@ -25,6 +25,10 @@ function initGame() {
         },
         'userInput': {
             controller: 'UserInputController'
+        },
+        'sound' : {
+            'controller': 'SoundController',
+            'model': 'SoundModel'
         }
     });
 
@@ -41,7 +45,22 @@ function initGame() {
 
     //console.log('before start');
 
-    Render.start();
+    initSound(moduleLoader._modules.sound, "json/audio.json", Render.start);
+}
+
+function initSound(SoundModule, configUrl, callback) {
+    var xmlhttp = new XMLHttpRequest(),
+        url = configUrl;
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var json = JSON.parse(xmlhttp.responseText);
+            SoundModule.model.loadSounds(json.audio, callback);
+        }
+    };
+
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
 }
 
 function setupSocketEvents() {
@@ -57,7 +76,7 @@ function setupSocketEvents() {
     // New player message received
     socket.on("all players", onAllPlayers);
 
-    // Player move message received
+    // Player move message rdeceived
     socket.on("move player", onMovePlayer);
 
     // Player removed message received
@@ -75,13 +94,7 @@ function onSocketConnected(data) {
     console.log("Connected to socket server", data);
 
     // Send local player data to the game server
-    socket.emit("new player", {
-        x: 100 * Math.floor(Math.random()*11),
-        y: 100 * Math.floor(Math.random()*11),
-        hp: Math.floor(Math.random()*11),
-        width : Math.floor(Math.random()*11),
-        height : Math.floor(Math.random()*11)
-    });
+    socket.emit("new player", {x: 300, y: 300});
 };
 
 // Socket disconnected
