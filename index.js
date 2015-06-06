@@ -18,7 +18,7 @@ var socket,		// Socket controller
 /**************************************************
  ** GAME INITIALISATION
  **************************************************/
-function init() {
+    function init() {
     // Create an empty array to store players
     players = [];
 
