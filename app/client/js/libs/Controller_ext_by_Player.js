@@ -115,6 +115,10 @@ class PlayerController extends Controller {
             me.sendMove();
         }
 
+        if (me.buttonsState.forward || me.buttonsState.backward ) {
+            me.view.changeSprite();
+        }
+
     }
 
     moveForward(state) {

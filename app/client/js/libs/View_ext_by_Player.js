@@ -8,29 +8,40 @@ class PlayerView extends View {
         var me = this,
             list = Render.createList();
 
-        me.players = {};
+
         me.list = list;
     }
 
     createPlayerItem(playerData) {
         var me = this,
-            list = me.list,
-            newPlayer = PIXI.Sprite.fromImage('img/cat.png');
+            list = Render.createList(),
+            baseTexture = PIXI.BaseTexture.fromImage('img/run_spritesheet_0.png');
+
+        baseTexture.width = 534;
+        baseTexture.height = 134;
 
 
-        newPlayer.width = playerData.width;
-        newPlayer.height = playerData.height;
+        var texture = new PIXI.Texture(baseTexture),
+            newPlayer;
 
+        texture.frame = me.model.readData('frames')[0];
+        newPlayer = new PIXI.Sprite(texture);
+
+
+        me.players = {};
+
+        me.model.storeData('initAnimationsDone', true);
         newPlayer.z = 10;
 
         newPlayer.anchor.x = 0.5;
         newPlayer.anchor.y = 0.5;
 
-        newPlayer.position.x = playerData.x;
-        newPlayer.position.y = playerData.y;
-        newPlayer.rotation = playerData.rotation;
+        newPlayer.position.x = me.model.readData('x');
+        newPlayer.position.y = me.model.readData('y');
+        newPlayer.rotation = me.model.readData('rotation');
+        newPlayer.frameCounter = 0;
 
-        Render.addToStage(this.list, newPlayer);
+        Render.addToStage(list, newPlayer);
 
 
         me.players[playerData.id] = newPlayer;
@@ -38,10 +49,26 @@ class PlayerView extends View {
         return newPlayer;
     }
 
+    changeSprite(player){
+        var me = this,
+            player = player || me.player,
+            frames = me.model.readData('frames');
+        me.setFrameCounter(player);
+        player.texture.frame = frames[player.frameCounter];
+    }
+
+
+    setFrameCounter(player){
+        player.frameCounter++;
+        player.frameCounter < 0 ? player.frameCounter = 3 : player.frameCounter > 3 ? player.frameCounter = 0 :
+            player.frameCounter = player.frameCounter;
+    }
+
     updatePlayer(data) {
         var me = this,
-            player = me.players[data.id];
-
+            player = me.players[data.id],
+            frames = me.model.readData('frames');
+        me.changeSprite(player);
         if (player) {
 
             player.position.x = data.x;
@@ -53,9 +80,41 @@ class PlayerView extends View {
     }
 
     createLocalPlayer (data) {
-        var player = PIXI.Sprite.fromImage('img/cat.png');
+        //var player = PIXI.Sprite.fromImage('img/cat.png');
+        //
+        //
+        //player.z = 10;
+        //
+        //player.anchor.x = 0.5;
+        //player.anchor.y = 0.5;
+        //
+        //player.position.x = data.x;
+        //player.position.y = data.y;
+        //player.rotation = data.rotation;
+        //
+        //player.width = data.width;
+        //player.height = data.height;
+        //
+        //Render.addToStage(this.list, player);
+        //
+        //this.player = player;
+        var me = this,
+            baseTexture = PIXI.BaseTexture.fromImage('img/run_spritesheet_0.png');
+
+        baseTexture.width = 534;
+        baseTexture.height = 134;
 
 
+        var texture = new PIXI.Texture(baseTexture),
+            player;
+
+        texture.frame = me.model.readData('frames')[0];
+        player = new PIXI.Sprite(texture);
+
+
+        me.players = {};
+
+        me.model.storeData('initAnimationsDone', true);
         player.z = 10;
 
         player.anchor.x = 0.5;
@@ -65,12 +124,14 @@ class PlayerView extends View {
         player.position.y = data.y;
         player.rotation = data.rotation;
 
-        player.width = data.width;
-        player.height = data.height;
+        //player.width = data.width;
+        //player.height = data.height;
+        player.frameCounter = 0;
 
-        Render.addToStage(this.list, player);
 
-        this.player = player;
+        Render.addToStage(me.list, player);
+
+        me.player = player;
     }
 
     removePlayerItem(id){
@@ -79,6 +140,7 @@ class PlayerView extends View {
             player = me.players[id];
 
         Render.removeFromStage(list, player);
+
         delete me.players[id]
     }
 

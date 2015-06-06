@@ -38,6 +38,7 @@ class UserInputController extends Controller {
                 me._prefix + me.getKeyName(keyCode),
                 true
             );
+            me.fireEvent("playSound", {soundID: "move"});
         }
     }
 
@@ -50,6 +51,7 @@ class UserInputController extends Controller {
                 me._prefix + me.getKeyName(keyCode),
                 false
             );
+            //me.fireEvent("stopSound", {soundID: "move", loop: true})
         }
     }
 
