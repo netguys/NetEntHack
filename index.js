@@ -34,6 +34,26 @@ function init() {
 
     // Start listening for events
     setEventHandlers();
+
+    startUpdateLoop();
+};
+
+var initBots = function(){
+    var newPlayer = new Bot(data.x, data.y);
+    newPlayer.id = this.id;
+
+    // Broadcast new player to connected socket clients
+    this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY()});
+
+    // Send existing players to the new player
+    var i, existingPlayer;
+    for (i = 0; i < players.length; i++) {
+        existingPlayer = players[i];
+        this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY()});
+    };
+
+    // Add new player to the players array
+    players.push(newPlayer);
 };
 
 
@@ -43,6 +63,21 @@ function init() {
 var setEventHandlers = function() {
     // Socket.IO
     socket.sockets.on("connection", onSocketConnection);
+};
+
+/**************************************************
+ ** GAME UPDATE LOOP
+ **************************************************/
+var startUpdateLoop = function(){
+    var dt = 32,//30 FPS
+    interval = setInterval(function(){
+        players.forEach(function(player, index){
+            if(player.update){
+                player.update(dt);
+            }
+        });
+    }, dt);
+    return interval;
 };
 
 // New socket connection
