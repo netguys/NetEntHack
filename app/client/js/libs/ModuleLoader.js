@@ -1,7 +1,7 @@
 class ModuleLoader {
 
     constructor(observer){
-        this._modules =[];
+        this._modules = {};
         this._observer =observer;
     }
 
@@ -37,7 +37,7 @@ class ModuleLoader {
 
                 me._observer.subscribe(controller, controller.setupEvents());
 
-                me.addModule(controller);
+                me.addModule(controller, moduleName);
             }
 
         });
@@ -45,8 +45,8 @@ class ModuleLoader {
         me._observer.fireEvent('request:initModules');
     }
 
-    addModule(module){
-        this._modules.push(module);
+    addModule(module, moduleName){
+        this._modules[moduleName] = module;
     }
 
 }

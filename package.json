@@ -8,7 +8,9 @@
     "gulp": "^3.8.11",
     "gulp-babel": "^5.1.0",
     "gulp-html-replace": "^1.4.5",
-    "serve-static": "^1.9.3"
+    "serve-static": "^1.9.3",
+    "socket.io": "^0.8.6",
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "gulp": "^3.8.11",

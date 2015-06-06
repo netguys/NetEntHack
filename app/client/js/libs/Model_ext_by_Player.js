@@ -27,4 +27,5 @@ class PlayerModel extends Model {
         me.data.rotation = me.data.rotation + me.data.rotationSpeed * correction;
     }
 
+
 }

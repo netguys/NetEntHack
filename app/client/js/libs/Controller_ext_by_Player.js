@@ -83,4 +83,11 @@ class PlayerController extends Controller {
     }
 
 
+    getX() {
+        return this.model.data.x;
+    }
+
+    getY() {
+        return this.model.data.y;
+    }
 }

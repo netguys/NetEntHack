@@ -13,6 +13,7 @@ class Avatar extends Player {
     createPIXIItem() {
         var me = this;
 
+
         // create a texture from an image path
         var texture = PIXI.Texture.fromImage('img/cat.png');
 
