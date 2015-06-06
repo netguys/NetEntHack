@@ -2,8 +2,8 @@ var Render, observer;
 var socket, remotePlayers, localPlayer;
 
 const CONFIG = {
-    viewportWidth: 800,
-    viewportHeight: 800
+    viewportWidth: window.innerWidth,
+    viewportHeight: window.innerHeight
 };
 
 //Game initialization
@@ -75,7 +75,13 @@ function onSocketConnected(data) {
     console.log("Connected to socket server", data);
 
     // Send local player data to the game server
-    socket.emit("new player", {x: 300, y: 300, hp: 1});
+    socket.emit("new player", {
+        x: 100 * Math.floor(Math.random()*11),
+        y: 100 * Math.floor(Math.random()*11),
+        hp: Math.floor(Math.random()*11),
+        width : Math.floor(Math.random()*11),
+        height : Math.floor(Math.random()*11)
+    });
 };
 
 // Socket disconnected

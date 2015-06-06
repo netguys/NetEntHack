@@ -41,6 +41,11 @@ class PlayerView extends View {
             list = me.list,
             newPlayer = PIXI.Sprite.fromImage('img/cat.png');
 
+        //window.uu = newPlayer;
+        //debugger;
+
+        newPlayer.width = playerData.width;
+        newPlayer.height = playerData.height;
 
         newPlayer.z = 10;
 
