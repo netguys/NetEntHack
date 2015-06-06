@@ -52,7 +52,6 @@ class PlayerController extends Controller {
 
         allUsers.forEach(function(userData){
             me.onCreateUser(userData);
-            console.log(userData);
         });
 
     }
@@ -124,7 +123,7 @@ class PlayerController extends Controller {
             changed = true;
         }
 
-        me.view.updateMe(me.myID);
+        me.view.updateMe();
 
         if (changed) {
             me.sendMove();

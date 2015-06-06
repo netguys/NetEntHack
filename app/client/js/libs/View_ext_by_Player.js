@@ -13,6 +13,19 @@ class PlayerView extends View {
 
         me.model.storeData('initAnimationsDone', true);
 
+        player.z = 10;
+
+        player.anchor.x = 0.5;
+        player.anchor.y = 0.5;
+
+        player.position.x = me.model.readData('x');
+        player.position.y = me.model.readData('y');
+        player.rotation = me.model.readData('rotation');
+
+        Render.addToStage(list, player);
+
+        me.player = player;
+
         me.list = list;
     }
 
@@ -61,15 +74,15 @@ class PlayerView extends View {
         delete me.players[id]
     }
 
-    updateMe(id) {
+    updateMe() {
         var me = this,
-            player = me.players[id];
+            player = me.player;
 
-        if (player) {
+        //if (player) {
             player.position.x = me.model.readData('x');
             player.position.y = me.model.readData('y');
             player.rotation = me.model.readData('rotation');
-        }
+        //}
 
 
     }
