@@ -101,7 +101,7 @@ function onAllPlayers(data) {
 function onSocketConnected(data) {
     console.log("Connected to socket server", data);
 
-    var data = {x: 100, y: 350, hp: 1, height : 250, width : 300};
+    var data = {x: 300, y: 300, hp: 1, height : 250, width : 300};
 
     moduleLoader._modules.player.createLocalPlayer(data);
 
