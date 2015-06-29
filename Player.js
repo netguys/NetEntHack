@@ -69,6 +69,9 @@ var Player = function (startX, startY, startRotation, startHp, width, height) {
         },
         removeEffect = function (effect_config) {
             effects = effects.filter(function(effect){return effect.id != effect_config.id});
+        },
+        getEffects = function () {
+            return effects;
         };
 
 
@@ -86,6 +89,7 @@ var Player = function (startX, startY, startRotation, startHp, width, height) {
         getHeight: getHeight,
         getUpdate: getUpdate,
 
+        getEffects: getEffects,
         setEffect: setEffect,
         removeEffect: removeEffect,
 

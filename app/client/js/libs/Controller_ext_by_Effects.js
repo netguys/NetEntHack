@@ -17,7 +17,7 @@ class EffectsController extends Controller {
         //events['notify:createUser'] = me.onCreateUser;
         //events['notify:moveUser'] = me.onMoveUser;
         //events['notify:removeUser'] = me.onRemoveUser;
-        //events['notify:allUserReceived'] = me.onAllUserReceived;
+        //events['notify:allUserReceived'] = me.onPlaceEffect;
         //
         //events['notify:animateCycle'] = me.calculateMove;
         //events['notify:userInput.moveForward'] = me.moveForward;
@@ -26,13 +26,26 @@ class EffectsController extends Controller {
         //events['notify:userInput.turnRight'] = me.turnRight;
         //'notify:userInput.stop': me.movePlayer
         //
-        events['request:setEffectToPlayer'] = me.onUserGetEffect;
+        events['request:setEffectOnPlayer'] = me.onUserSetEffect;
+        events['request:removeEffectOnPlayer'] = me.onUserRemoveEffect;
 
         return events;
 
     }
 
-    onUserGetEffect(player){
+
+    seedEffects(effects){
+        let me = this;
+        effects.forEach(function(effect){
+            me.view.addSeedEffect(effect);
+        });
+    }
+
+    onUserSetEffect(player){
+        var me = this;
+
+    }
+    onUserRemoveEffect(player){
         var me = this;
 
     }

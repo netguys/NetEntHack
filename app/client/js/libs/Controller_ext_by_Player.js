@@ -17,6 +17,7 @@ class PlayerController extends Controller {
             left: false,
             right: false
         }
+        window.pc = this;
     }
 
     setupEvents() {
@@ -44,7 +45,7 @@ class PlayerController extends Controller {
 
     createLocalPlayer(data) {
         this.view.createLocalPlayer(data);
-
+        console.error(data);
     }
 
     start() {

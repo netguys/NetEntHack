@@ -122,6 +122,9 @@ function onSocketConnected(data) {
     socket.emit("new player", data);
 
     socket.emit("get food");
+
+    /*request to seed all effects*/
+    socket.emit("seed effects");
 };
 
 // Socket disconnected

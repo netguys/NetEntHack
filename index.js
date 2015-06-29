@@ -5,8 +5,9 @@ var util = require("util"),					// Utility resources (logging, object inspection
     io = require("socket.io"),				// Socket.IO
     Player = require("./Player").Player,// Player class
     Bot = require("./Bot").Bot,
-    Food = require("./Food").Food;	// Bot class
-    Collider = require("./Collider").Collider;	// Collider class
+    Food = require("./Food").Food,	// Bot class
+    Collider = require("./Collider").Collider,	// Collider class
+    EffectsSeeder = require("./EffectsSeed").EffectsSeed;   // seed available effects
 
 
 /**************************************************
@@ -20,7 +21,7 @@ var socket,		// Socket controller
 /**************************************************
  ** GAME INITIALISATION
  **************************************************/
-    function init() {
+function init() {
     // Create an empty array to store players
     players = [];
 
@@ -72,21 +73,21 @@ var setEventHandlers = function() {
  **************************************************/
 var startUpdateLoop = function(){
     var dt = 32,//30 FPS
-    interval = setInterval(function(){
-        players.forEach(function(player, index){
-            if(player.update){
-                player.update(dt);
-                if(connContext){
-                    connContext.broadcast.emit("move player", {
-                        id: player.id,
-                        x: player.getX(),
-                        y: player.getY(),
-                        rotation : player.getRotation()
-                    });
+        interval = setInterval(function(){
+            players.forEach(function(player, index){
+                if(player.update){
+                    player.update(dt);
+                    if(connContext){
+                        connContext.broadcast.emit("move player", {
+                            id: player.id,
+                            x: player.getX(),
+                            y: player.getY(),
+                            rotation : player.getRotation()
+                        });
+                    }
                 }
-            }
-        });
-    }, dt);
+            });
+        }, dt);
     return interval;
 };
 
@@ -104,7 +105,17 @@ function onSocketConnection(client) {
     client.on("move player", onMovePlayer);
 
     client.on("get food", onGetFood);
+
+    client.on("seed effects", onSeedEffects);
 };
+
+
+function onSeedEffects(){
+    // some effects processing and return to client them...
+    util.log('create effects');
+    this.emit("effects seeded", EffectsSeeder.getEffectsToSeed());
+}
+
 
 function onGetFood() {
     util.log('create food');
@@ -143,7 +154,8 @@ function onNewPlayer(data) {
         x: newPlayer.getX(),
         y: newPlayer.getY(),
         rotation : newPlayer.getRotation(),
-        hp : newPlayer.getHp()
+        hp : newPlayer.getHp(),
+        effects: newPlayer.getEffects()
     });
 
     // Send existing players to the new player
@@ -155,7 +167,8 @@ function onNewPlayer(data) {
             x: existingPlayer.getX(),
             y: existingPlayer.getY(),
             rotation : existingPlayer.getRotation(),
-            hp : existingPlayer.getHp()
+            hp : existingPlayer.getHp(),
+            effects: newPlayer.getEffects()
         });
     };
 
@@ -172,7 +185,8 @@ function onNewPlayer(data) {
 function onMovePlayer(data) {
     var me = this;
     // Find player in array
-    var movePlayer = playerById(this.id);
+    var movePlayer = playerById(this.id),
+        playerobj;
 
     // Player not found
     if (!movePlayer) {
@@ -185,6 +199,26 @@ function onMovePlayer(data) {
     movePlayer.setX(data.x);
     movePlayer.setY(data.y);
     movePlayer.setRotation(data.rotation);
+
+        playerobj = {
+            x: movePlayer.getX(),
+            y: movePlayer.getY(),
+            w: movePlayer.getWidth(),
+            h: movePlayer.getHeight()
+        };
+        EffectsSeeder.getEffectsToSeed().forEach(function(effect){
+            var playerHasEffect = movePlayer.getEffects().some(function(ef){
+                return ef.id == effect.id;
+            });
+            util.log('player move');
+            //if user don't have this effect - set it.
+            if(!playerHasEffect && Collider.checkSimpleCollide(playerobj, effect)){
+                movePlayer.setEffect(effect);
+                util.log('effect picked');
+                //this.emit("effect setted");
+            }
+        });
+
 
     players.forEach(function(player){
 
@@ -226,7 +260,8 @@ function onMovePlayer(data) {
         rotation : movePlayer.getRotation(),
         hp: movePlayer.getHp(),
         width : movePlayer.getWidth(),
-        height : movePlayer.getHeight()
+        height : movePlayer.getHeight(),
+        effects: movePlayer.getEffects()
     });
 
 };
