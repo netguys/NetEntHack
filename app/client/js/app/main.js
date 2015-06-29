@@ -96,12 +96,17 @@ function setupSocketEvents() {
     socket.on("remove player", onRemovePlayer);
 
     // new food received
-    socket.on("created food", onCreateFood)
+    socket.on("created food", onCreateFood);
+
+    socket.on("deleted Food", onDeleteFood);
 }
 
 function onCreateFood(arg) {
-
     moduleLoader._modules.food.createFood(arg);
+}
+
+function onDeleteFood(arg) {
+    moduleLoader._modules.food.deleteFood(arg);
 }
 
 function onAllPlayers(data) {

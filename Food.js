@@ -15,6 +15,14 @@ var Food = {
 
     getFood : function() {
         return this.food;
+    },
+
+    deleteFood : function(obj) {
+        for (var i = 0; i < this.food.length; i++) {
+            if ( this.food[i].x === obj.x && this.food[i].y === obj.y ) {
+                this.food.splice(i, 1);
+            }
+        }
     }
 };
 

@@ -70,9 +70,12 @@ class PlayerView extends View {
         var me = this,
             player = me.players[data.id],
             frames = me.model.readData('frames');
-        me.changeSprite(player);
-        if (player) {
 
+
+        me.changeSprite(player);
+
+
+        if (player) {
             player.position.x = data.x;
             player.position.y = data.y;
             player.scale.x = data.hp ? data.hp : 1;

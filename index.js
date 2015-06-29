@@ -207,10 +207,40 @@ function onMovePlayer(data) {
                     y : el.y,
                     w : Food.size,
                     h : Food.size
-                })){
+                })) {
 
-                util.log('EAT ME!');
+                Food.deleteFood({
+                    x: el.x,
+                    y: el.y
+                });
 
+
+                util.log(player.id + '    ' + movePlayer.id);
+
+
+                //movePlayer.(movePlayer.getX() + 100); //increase bot
+                //    movePlayer.setY(movePlayer.getY() + 100);
+
+                //if (player.id === movePlayer.id) {
+
+
+                movePlayer.setHp(movePlayer.getHp() + 1);
+
+                me.broadcast.emit("move player", {
+                    id: movePlayer.id,
+                    x: movePlayer.getX(),
+                    y: movePlayer.getY(),
+                    rotation: movePlayer.getRotation(),
+                    hp: movePlayer.getHp(),
+                    width: movePlayer.getWidth(),
+                    height: movePlayer.getHeight()
+                });
+                //}
+
+                me.emit('deleted Food', {
+                    x: el.x,
+                    y: el.y
+                });
             }
         });
 

@@ -7,6 +7,8 @@ class FoodView extends View {
     initAnimations() {
         var me = this,
             texture;
+
+        me.foods = [];
     }
 
     createFood (arg) {
@@ -34,9 +36,23 @@ class FoodView extends View {
 
             me.list = list;
 
+            me.foods.push(me.food);
+
             Render.addToStage(me.list, me.food);
         });
 
+
+    }
+
+    deleteFood (data) {
+        var me = this;
+
+        me.foods.forEach(function(food) {
+            if ( food.x === data.x && food.y === data.y ) {
+                food.scale.x = 0;
+                food.scale.y = 0;
+            }
+        })
 
     }
 
