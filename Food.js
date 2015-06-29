@@ -10,7 +10,8 @@ var Food = {
 
     food : [
         {x: 1, y : 1},
-        {x: 200, y : 200}
+        {x: 200, y : 200},
+        {x: 200, y : 400}
     ],
 
     getFood : function() {

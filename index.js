@@ -132,7 +132,8 @@ function onClientDisconnect() {
 };
 
 // New player has joined
-function onNewPlayer(data) {
+function onNewPlayer() {
+    var data = {x: 300, y: 300, hp: 1, height : 250, width : 300};
     // Create a new player
     var newPlayer = new Player(data.x, data.y, data.rotation, data.hp);
     newPlayer.id = this.id;
@@ -237,10 +238,21 @@ function onMovePlayer(data) {
                 });
                 //}
 
-                me.emit('deleted Food', {
+                me.broadcast.emit('deleted Food', {
                     x: el.x,
                     y: el.y
                 });
+
+                me.emit('deleted Food', {
+                    x : el.x,
+                    y : el.y
+                })           ;
+
+
+
+                setTimeout(function() {
+
+                }, 3000)
             }
         });
 
@@ -258,6 +270,19 @@ function onMovePlayer(data) {
         width : movePlayer.getWidth(),
         height : movePlayer.getHeight()
     });
+
+    // Broadcast updated position to connected socket clients
+    this.emit("move player", {
+        id: movePlayer.id,
+        x: movePlayer.getX(),
+        y: movePlayer.getY(),
+        rotation : movePlayer.getRotation(),
+        hp: movePlayer.getHp(),
+        width : movePlayer.getWidth(),
+        height : movePlayer.getHeight()
+    });
+
+
 
 };
 

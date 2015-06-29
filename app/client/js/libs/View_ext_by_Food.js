@@ -42,20 +42,24 @@ class FoodView extends View {
             Render.addMovable(me.food);
         });
 
-
     }
 
     deleteFood (data) {
         var me = this;
 
+
+        //please, fix me!
         me.foods.forEach(function(food) {
             if ( food.x === data.x && food.y === data.y ) {
                 food.scale.x = 0;
                 food.scale.y = 0;
+
+
             }
         })
 
     }
+
 
     //createPlayerItem(playerData) {
     //    var me = this,
