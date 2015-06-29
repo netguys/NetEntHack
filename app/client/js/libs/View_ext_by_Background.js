@@ -18,8 +18,8 @@ class BackgroundView extends View {
 
         background.z = 0;
 
-        background.width = CONFIG.viewportWidth;
-        background.height = CONFIG.viewportHeight;
+        background.width = CONFIG.viewportWidth * 100;
+        background.height = CONFIG.viewportHeight * 100;
 
         //background.scale.x = 3;
         //background.scale.y = 3;
@@ -36,7 +36,8 @@ class BackgroundView extends View {
         //me._item.anchor.x = 0.5;
         //me._item.anchor.y = 0.5;
 
-        Render.addToStage(list, background);
+        //Render.addToStage(list, background);
+        Render.addMovable(background);
 
     }
 

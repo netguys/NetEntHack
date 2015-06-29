@@ -38,7 +38,8 @@ class FoodView extends View {
 
             me.foods.push(me.food);
 
-            Render.addToStage(me.list, me.food);
+            //Render.addToStage(me.list, me.food);
+            Render.addMovable(me.food);
         });
 
 
