@@ -99,7 +99,27 @@ function setupSocketEvents() {
     socket.on("created food", onCreateFood);
 
     socket.on("deleted Food", onDeleteFood);
+
+    /*if seed request sent and we got some...*/
+    socket.on("effects seeded", onEffectsSeeded);
+    socket.on("effect setted", onEffectsSetted);
+    /*remove effect from map for other players*/
+    socket.on("effect removed from map", onEffectSeedRemoved);
+
 }
+
+function onEffectsSeeded(effects){
+    moduleLoader._modules.effects.seedEffects(effects);
+}
+
+function onEffectSeedRemoved(effect){
+    observer.fireEvent("request:removeUsedEffect", effect);
+}
+function onEffectsSetted(effect){
+    //@todo: add effect to user instance and animate it
+    observer.fireEvent("request:removeUsedEffect", effect);
+}
+
 
 function onCreateFood(arg) {
     moduleLoader._modules.food.createFood(arg);

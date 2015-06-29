@@ -113,7 +113,11 @@ function onSocketConnection(client) {
 function onSeedEffects(){
     // some effects processing and return to client them...
     util.log('create effects');
-    this.emit("effects seeded", EffectsSeeder.getEffectsToSeed());
+    var effectsToSeed = EffectsSeeder.getEffectsToSeed();
+    effectsToSeed.forEach(function (ef) {
+        ef.guid = guid();
+    });
+    this.emit("effects seeded", effectsToSeed);
 }
 
 
@@ -201,24 +205,26 @@ function onMovePlayer(data) {
     movePlayer.setY(data.y);
     movePlayer.setRotation(data.rotation);
 
-        playerobj = {
-            x: movePlayer.getX(),
-            y: movePlayer.getY(),
-            w: movePlayer.getWidth(),
-            h: movePlayer.getHeight()
-        };
-        EffectsSeeder.getEffectsToSeed().forEach(function(effect){
-            var playerHasEffect = movePlayer.getEffects().some(function(ef){
-                return ef.id == effect.id;
-            });
-            util.log('player move');
-            //if user don't have this effect - set it.
-            if(!playerHasEffect && Collider.checkSimpleCollide(playerobj, effect)){
-                movePlayer.setEffect(effect);
-                util.log('effect picked');
-                //this.emit("effect setted");
-            }
+    /*effects block*/
+    playerobj = {
+        x: movePlayer.getX(),
+        y: movePlayer.getY(),
+        w: movePlayer.getWidth(),
+        h: movePlayer.getHeight()
+    };
+    EffectsSeeder.getEffectsToSeed().forEach(function(effect){
+        var playerHasEffect = movePlayer.getEffects().some(function(ef){
+            return ef.id == effect.id;
         });
+        //if user don't have this effect - set it.
+        if(!playerHasEffect && Collider.checkSimpleCollide(playerobj, effect)){
+            movePlayer.setEffect(effect);
+            //set effect on user
+            me.emit("effect setted", effect);
+            //notify all other clients that that dude get effect
+            me.broadcast.emit("effect removed from map", effect);
+        }
+    });
 
 
     players.forEach(function(player){
@@ -335,6 +341,18 @@ function playerById(id) {
 
     return false;
 };
+/**
+ * return guid
+ * */
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
 
 
 /**************************************************

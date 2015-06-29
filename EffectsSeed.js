@@ -4,19 +4,21 @@ var EffectsSeed = (function(){
             id: 'nya',
             'description': 'Make character more charming.',
             time: 600, // milliseconds
-            x: 600,
-            y: 200,
-            width: 100,
-            height: 85
+            x: 64300,
+            y: 36000,
+            w: 100,
+            h: 85,
+            birthdate: +new Date()
         },
         {
             id: 'nya',
             'description': 'Make character more charming.',
             time: 600, // milliseconds
-            x: 400,
-            y: 200,
-            width: 100,
-            height: 85
+            x: 63500,
+            y: 36100,
+            w: 100,
+            h: 85,
+            birthdate: +new Date()
         }
     ];
 

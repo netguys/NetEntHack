@@ -2,10 +2,8 @@ class EffectsView extends View {
 
     initAnimations() {
         let me = this,
-            list = Render.createList(),
             effects = {};
         me.seed_effects = effects;
-        me.list = list;
 
         window.ev = this;
         //Render.addToStage(me.list, me.food);
@@ -19,6 +17,7 @@ class EffectsView extends View {
         texture = PIXI.Texture.fromImage('img/cat.png');
         effectItem = new PIXI.extras.TilingSprite(texture);
 
+        effectItem.guid = effect.guid;
         effectItem.scale.x = 0.5;
         effectItem.scale.y = 0.5;
 
@@ -29,9 +28,15 @@ class EffectsView extends View {
 
         effectItem.width = effect.width || 100;
         effectItem.height = effect.height || 100;
-        me.seed_effects[effect.id] = effectItem;
-        Render.addToStage(me.list, effectItem);
+        me.seed_effects[effect.guid] = effectItem;
+        Render.addMovable(effectItem);
 
+    }
+    removeSeedEffect(effect){
+        let me = this;
+        me.seed_effects[effect.guid].scale.x = 0;
+        me.seed_effects[effect.guid].scale.y = 0;
+        //delete me.seed_effects[effect.guid];
 
     }
 

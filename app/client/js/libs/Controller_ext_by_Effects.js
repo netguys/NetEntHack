@@ -13,21 +13,10 @@ class EffectsController extends Controller {
             events;
 
         events = super.setupEvents();
-
-        //events['notify:createUser'] = me.onCreateUser;
-        //events['notify:moveUser'] = me.onMoveUser;
-        //events['notify:removeUser'] = me.onRemoveUser;
-        //events['notify:allUserReceived'] = me.onPlaceEffect;
-        //
-        //events['notify:animateCycle'] = me.calculateMove;
-        //events['notify:userInput.moveForward'] = me.moveForward;
-        //events['notify:userInput.moveBackward'] = me.moveBackward;
-        //events['notify:userInput.turnLeft'] = me.turnLeft;
-        //events['notify:userInput.turnRight'] = me.turnRight;
-        //'notify:userInput.stop': me.movePlayer
-        //
+        events["request:removeUsedEffect"] = me.view.removeSeedEffect.bind(me.view);
         events['request:setEffectOnPlayer'] = me.onUserSetEffect;
         events['request:removeEffectOnPlayer'] = me.onUserRemoveEffect;
+
 
         return events;
 
