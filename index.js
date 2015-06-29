@@ -143,7 +143,8 @@ function onClientDisconnect() {
 };
 
 // New player has joined
-function onNewPlayer(data) {
+function onNewPlayer() {
+    var data = {x: 300, y: 300, hp: 1, height : 250, width : 300};
     // Create a new player
     var newPlayer = new Player(data.x, data.y, data.rotation, data.hp);
     newPlayer.id = this.id;
@@ -241,10 +242,51 @@ function onMovePlayer(data) {
                     y : el.y,
                     w : Food.size,
                     h : Food.size
-                })){
+                })) {
 
-                util.log('EAT ME!');
+                Food.deleteFood({
+                    x: el.x,
+                    y: el.y
+                });
 
+
+                util.log(player.id + '    ' + movePlayer.id);
+
+
+                //movePlayer.(movePlayer.getX() + 100); //increase bot
+                //    movePlayer.setY(movePlayer.getY() + 100);
+
+                //if (player.id === movePlayer.id) {
+
+
+                movePlayer.setHp(movePlayer.getHp() + 1);
+
+                me.broadcast.emit("move player", {
+                    id: movePlayer.id,
+                    x: movePlayer.getX(),
+                    y: movePlayer.getY(),
+                    rotation: movePlayer.getRotation(),
+                    hp: movePlayer.getHp(),
+                    width: movePlayer.getWidth(),
+                    height: movePlayer.getHeight()
+                });
+                //}
+
+                me.broadcast.emit('deleted Food', {
+                    x: el.x,
+                    y: el.y
+                });
+
+                me.emit('deleted Food', {
+                    x : el.x,
+                    y : el.y
+                })           ;
+
+
+
+                setTimeout(function() {
+
+                }, 3000)
             }
         });
 
@@ -263,6 +305,19 @@ function onMovePlayer(data) {
         height : movePlayer.getHeight(),
         effects: movePlayer.getEffects()
     });
+
+    // Broadcast updated position to connected socket clients
+    this.emit("move player", {
+        id: movePlayer.id,
+        x: movePlayer.getX(),
+        y: movePlayer.getY(),
+        rotation : movePlayer.getRotation(),
+        hp: movePlayer.getHp(),
+        width : movePlayer.getWidth(),
+        height : movePlayer.getHeight()
+    });
+
+
 
 };
 

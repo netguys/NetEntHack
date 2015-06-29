@@ -43,8 +43,7 @@ class PlayerView extends View {
         newPlayer.rotation = playerData ? playerData.rotation : me.model.readData('rotation');
         newPlayer.frameCounter = 0;
 
-        Render.addToStage(list, newPlayer);
-
+        Render.addMovable(newPlayer);
 
         me.players[playerData.id] = newPlayer;
 
@@ -70,9 +69,12 @@ class PlayerView extends View {
         var me = this,
             player = me.players[data.id],
             frames = me.model.readData('frames');
-        me.changeSprite(player);
-        if (player) {
 
+
+        me.changeSprite(player);
+
+
+        if (player) {
             player.position.x = data.x;
             player.position.y = data.y;
             player.scale.x = data.hp ? data.hp : 1;
@@ -83,6 +85,7 @@ class PlayerView extends View {
 
     createLocalPlayer (data) {
         var me = this,
+            envPos = {},
             imageConf = me.model.readData('playerImage'),
             baseTexture = PIXI.BaseTexture.fromImage(imageConf.image);
 
@@ -105,16 +108,19 @@ class PlayerView extends View {
         player.anchor.x = 0.5;
         player.anchor.y = 0.5;
 
-        player.position.x = data.x;
-        player.position.y = data.y;
+        player.position.x = 1280/2;
+        player.position.y = 720/2;
+        envPos.x = -data.x;
+        envPos.y = -data.y;
+        Render.moveMovable(envPos);
         player.rotation = data.rotation;
 
         //player.width = data.width;
         //player.height = data.height;
         player.frameCounter = 0;
 
-
-        Render.addToStage(me.list, player);
+        Render.addStatic(player);
+        //Render.addToStage(me.list, player);
 
         me.player = player;
     }
@@ -131,12 +137,16 @@ class PlayerView extends View {
 
     updateMe() {
         var me = this,
+            envPos = {},
             player = me.player;
 
         if (!player) return;
 
-        player.position.x = me.model.readData('x');
-        player.position.y = me.model.readData('y');
+        envPos.x = 1280/2 - me.model.readData('x');
+        envPos.y = 720/2 - me.model.readData('y');
+        Render.moveMovable(envPos);
+        //player.position.x = me.model.readData('x');
+        //player.position.y = me.model.readData('y');
         player.rotation = me.model.readData('rotation');
 
     }

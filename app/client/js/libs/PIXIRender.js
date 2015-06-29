@@ -9,6 +9,37 @@ class PIXIRender {
         this._observer = observer;
         this.renderer = PIXI.autoDetectRenderer(width, height, {backgroundColor: backgroundColor});
         this._mainStage = new PIXI.Container();
+
+        this.movableContainer = new PIXI.Container();
+        this.staticContainer = new PIXI.Container();
+
+        this.movableContainer.z = 1;
+        this.staticContainer.z = 2;
+
+        this._mainStage.addChild(this.movableContainer);
+        this._mainStage.addChild(this.staticContainer);
+    }
+
+    addMovable(object){
+        var me = this;
+
+        me.movableContainer.addChild(object);
+        me._mainStage.children.sort(me.depthCompare);
+
+    }
+
+    addStatic(object){
+        var me = this;
+
+        me.staticContainer.addChild(object);
+        me._mainStage.children.sort(me.depthCompare);
+
+    }
+
+    moveMovable(pos){
+        var me = this;
+
+        me.movableContainer.position = pos;
     }
 
     addToStage(stage, item) {

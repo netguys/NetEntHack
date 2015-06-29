@@ -45,19 +45,8 @@ class FoodController extends Controller {
         this.view.createFood(arg);
     }
 
-
-
-    sendMove() {
-        var me = this;
-
-        //socket.emit("move player", {
-        //    id: me.myID,
-        //    x: me.model.x,
-        //    y: me.model.y,
-        //    rotation: me.model.rotation,
-        //    width : me.model.width,
-        //    height : me.model.height
-        //});
+    deleteFood(arg) {
+        this.view.deleteFood(arg);
     }
 
 }
