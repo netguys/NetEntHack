@@ -94,6 +94,14 @@ function setupSocketEvents() {
 
     // Player removed message received
     socket.on("remove player", onRemovePlayer);
+
+    // new food received
+    socket.on("created food", onCreateFood)
+}
+
+function onCreateFood(arg) {
+
+    moduleLoader._modules.food.createFood(arg);
 }
 
 function onAllPlayers(data) {
@@ -112,6 +120,8 @@ function onSocketConnected(data) {
 
     // Send local player data to the game server
     socket.emit("new player", data);
+
+    socket.emit("get food");
 };
 
 // Socket disconnected

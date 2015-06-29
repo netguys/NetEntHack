@@ -6,26 +6,38 @@ class FoodView extends View {
 
     initAnimations() {
         var me = this,
-            texture,
-            list = Render.createList();
+            texture;
+    }
+
+    createFood (arg) {
+        let me = this,
+            list,
+            texture;
+
+        list = Render.createList();
 
         texture = PIXI.Texture.fromImage('img/food.png');
-        me.food = new PIXI.extras.TilingSprite(texture);
 
-        me.food.scale.x = 0.25;
-        me.food.scale.y = 0.25;
+        arg.forEach(function(param) {
+            me.food = new PIXI.extras.TilingSprite(texture);
 
-        me.food.position.x = 0;
-        me.food.position.y = 0;
+            me.food.scale.x = 0.25;
+            me.food.scale.y = 0.25;
 
-        me.food.z = 45;
+            me.food.position.x = param.x;
+            me.food.position.y = param.y;
 
-        me.food.width = 256;
-        me.food.height = 256;
+            me.food.z = 50;
 
-        me.list = list;
+            me.food.width = 256;
+            me.food.height = 256;
 
-        Render.addToStage(me.list, me.food);
+            me.list = list;
+
+            Render.addToStage(me.list, me.food);
+        });
+
+
     }
 
     //createPlayerItem(playerData) {

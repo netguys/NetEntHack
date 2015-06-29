@@ -4,7 +4,8 @@
 var util = require("util"),					// Utility resources (logging, object inspection, etc)
     io = require("socket.io"),				// Socket.IO
     Player = require("./Player").Player,// Player class
-    Bot = require("./Bot").Bot,	// Bot class,// Player class
+    Bot = require("./Bot").Bot,
+    Food = require("./Food").Food;	// Bot class
     Collider = require("./Collider").Collider;	// Collider class
 
 
