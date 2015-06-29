@@ -15,12 +15,12 @@ class PlayerView extends View {
     createPlayerItem(playerData) {
         var me = this,
             list = Render.createList(),
+            playerData = me.model.readData("remotePlayers")[playerData.id],
             imageConf = me.model.readData('playerImage'),
             baseTexture = PIXI.BaseTexture.fromImage(imageConf.image);
 
         baseTexture.width = imageConf.width;
         baseTexture.height = imageConf.height;
-
 
         var texture = new PIXI.Texture(baseTexture),
             newPlayer;
@@ -37,9 +37,10 @@ class PlayerView extends View {
         newPlayer.anchor.x = 0.5;
         newPlayer.anchor.y = 0.5;
 
-        newPlayer.position.x = me.model.readData('x');
-        newPlayer.position.y = me.model.readData('y');
-        newPlayer.rotation = me.model.readData('rotation');
+        newPlayer.position.x = playerData ? playerData.x : me.model.readData('x');
+        newPlayer.position.y = playerData ? playerData.y : me.model.readData('y');
+
+        newPlayer.rotation = playerData ? playerData.rotation : me.model.readData('rotation');
         newPlayer.frameCounter = 0;
 
         Render.addToStage(list, newPlayer);

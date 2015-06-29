@@ -26,6 +26,8 @@ class PlayerModel extends Model {
         };
         me.data.width = 200;
         me.data.height = 200;
+
+        me.data.remotePlayers = {};
     }
 
     makeStep(correction) {
@@ -44,6 +46,12 @@ class PlayerModel extends Model {
 
         me.data.x = changedX;
         me.data.y = changedY;
+    }
+
+    addRemotePlayer(data){
+        var me = this;
+
+        me.data.remotePlayers[data.id] = data;
     }
 
     turnPlayer(correction){

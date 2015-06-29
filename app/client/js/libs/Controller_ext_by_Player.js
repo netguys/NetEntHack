@@ -64,10 +64,9 @@ class PlayerController extends Controller {
     onCreateUser(data) {
         var me = this;
 
+        me.model.addRemotePlayer(data);
         me.view.createPlayerItem(data);
 
-
-        console.log(data);
     }
 
     onMoveUser(data) {
