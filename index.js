@@ -102,7 +102,14 @@ function onSocketConnection(client) {
 
     // Listen for move player message
     client.on("move player", onMovePlayer);
+
+    client.on("get food", onGetFood);
 };
+
+function onGetFood() {
+    util.log('create food');
+    this.emit("created food", Food.getFood());
+}
 
 // Socket client has disconnected
 function onClientDisconnect() {

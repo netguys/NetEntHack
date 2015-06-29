@@ -27,7 +27,7 @@ class FoodView extends View {
             me.food.position.x = param.x;
             me.food.position.y = param.y;
 
-            me.food.z = 50;
+            me.food.z = 2;
 
             me.food.width = 256;
             me.food.height = 256;
