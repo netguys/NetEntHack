@@ -9,7 +9,7 @@ var livereload = require('gulp-livereload'); //https://chrome.google.com/webstor
 var paths = {
     scripts: [
         'app/client/js/libs/**/*.js',
-        'app/client/js/app/**/*.js'
+        'app/client/js/app/main.js'
 
     ],
     images: 'app/client/img/**/*',
