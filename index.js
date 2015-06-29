@@ -4,7 +4,8 @@
 var util = require("util"),					// Utility resources (logging, object inspection, etc)
     io = require("socket.io"),				// Socket.IO
     Player = require("./Player").Player,// Player class
-    Bot = require("./Bot").Bot;	// Bot class
+    Bot = require("./Bot").Bot,
+    Food = require("./Food").Food;	// Bot class
 
 
 /**************************************************
@@ -100,7 +101,15 @@ function onSocketConnection(client) {
 
     // Listen for move player message
     client.on("move player", onMovePlayer);
+
+    client.on("get food", onGetFood);
 };
+
+function onGetFood() {
+
+    util.log('create food');
+    this.emit("created food", {x : 1, y : 1});
+}
 
 // Socket client has disconnected
 function onClientDisconnect() {

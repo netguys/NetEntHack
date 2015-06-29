@@ -6,8 +6,15 @@ class FoodView extends View {
 
     initAnimations() {
         var me = this,
-            texture,
-            list = Render.createList();
+            texture;
+    }
+
+    createFood (arg) {
+        let me = this,
+            list,
+            texture;
+
+        list = Render.createList();
 
         texture = PIXI.Texture.fromImage('img/food.png');
         me.food = new PIXI.extras.TilingSprite(texture);
@@ -15,10 +22,10 @@ class FoodView extends View {
         me.food.scale.x = 0.25;
         me.food.scale.y = 0.25;
 
-        me.food.position.x = 0;
-        me.food.position.y = 0;
+        me.food.position.x = arg.x;
+        me.food.position.y = arg.y;
 
-        me.food.z = 45;
+        me.food.z = 50;
 
         me.food.width = 256;
         me.food.height = 256;

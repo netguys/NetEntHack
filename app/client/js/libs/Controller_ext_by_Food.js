@@ -29,14 +29,20 @@ class FoodController extends Controller {
 
     }
 
-    sendEated(conf) {
+    sendEaten(conf) {
         var me = this;
 
-        socket.emit("eated food", {
-            eated: true,
+        socket.emit("eaten food", {
+            eaten: true,
             x: conf.x,
             y: conf.y
         });
+    }
+
+    createFood(arg) {
+        var me = this;
+
+        this.view.createFood(arg);
     }
 
 
