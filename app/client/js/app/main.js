@@ -33,6 +33,11 @@ function initGame() {
         'sound' : {
             'controller': 'SoundController',
             'model': 'SoundModel'
+        },
+        'effects' : {
+            'controller': 'EffectsController',
+            'view': 'EffectsView',
+            'model': 'EffectsModel'
         }
     });
 

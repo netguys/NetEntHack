@@ -4,7 +4,8 @@
 var util = require("util"),					// Utility resources (logging, object inspection, etc)
     io = require("socket.io"),				// Socket.IO
     Player = require("./Player").Player,// Player class
-    Bot = require("./Bot").Bot;	// Bot class
+    Bot = require("./Bot").Bot,	// Bot class,// Player class
+    Collider = require("./Collider").Collider;	// Collider class
 
 
 /**************************************************
@@ -177,22 +178,14 @@ function onMovePlayer(data) {
     movePlayer.setRotation(data.rotation);
 
     players.forEach(function(player){
-        //if(movePlayer.id === player.id) return;
-        //if(((movePlayer.getX() + movePlayer.getWidth() >= player.getX()
-        //    && movePlayer.getX() + movePlayer.getWidth() <= player.getX() + player.getWidth())
-        //    || (movePlayer.getX() >= player.getX()
-        //    && movePlayer.getX() <= player.getX() + player.getWidth()))
-        //
-        //&& ((movePlayer.getY() + movePlayer.getHeight() >= player.getY()
-        //    && movePlayer.getY() + movePlayer.getHeight() <= player.getY() + player.getHeight())
-        //    || (movePlayer.getY() >= player.getY()
-        //    && movePlayer.getY() <= player.getY() + player.getHeight()))){
-        //
-        //    if(movePlayer.getHp() >= player.getHp()){
-        //        movePlayer.setHp(movePlayer.getHp() + player.getHp());
-        //        //player.setHp(0);
-        //    }
-        //}
+        if(movePlayer.id === player.id) return;
+        if(Collider.checkUsersCollide(movePlayer, player)){
+
+            if(movePlayer.getHp() >= player.getHp()){
+                movePlayer.setHp(movePlayer.getHp() + player.getHp());
+                player.setHp(0);
+            }
+        }
     });
 
     // Broadcast updated position to connected socket clients
