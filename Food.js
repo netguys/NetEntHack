@@ -6,6 +6,8 @@ var Food = {
     //    y = startY,
     //    id;
 
+    size : 64,
+
     food : [
         {x: 1, y : 1},
         {x: 200, y : 200}

@@ -11,8 +11,17 @@ var Collider = (function(){
             || (item1.getY() >= item2.getY()
             && item1.getY() <= item2.getY() + item2.getHeight()));
     }
+    
+    function checkSimpleCollide(rect1, rect2) {
+        return  (rect1.x < rect2.x + rect2.w &&
+        rect1.x + rect1.w > rect2.x &&
+        rect1.y < rect2.y + rect2.h &&
+        rect1.h + rect1.y > rect2.y)
+    }
+    
     return {
-        checkUsersCollide: checkUsersCollide
+        checkUsersCollide: checkUsersCollide,
+        checkSimpleCollide : checkSimpleCollide
     };
 })();
 exports.Collider = Collider;

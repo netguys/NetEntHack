@@ -180,20 +180,55 @@ function onMovePlayer(data) {
         return;
     };
 
+
     // Update player position
     movePlayer.setX(data.x);
     movePlayer.setY(data.y);
     movePlayer.setRotation(data.rotation);
 
     players.forEach(function(player){
-        if(movePlayer.id === player.id) return;
-        if(Collider.checkUsersCollide(movePlayer, player)){
 
+        if(movePlayer.id !== player.id && Collider.checkUsersCollide(movePlayer, player)){
             if(movePlayer.getHp() >= player.getHp()){
                 movePlayer.setHp(movePlayer.getHp() + player.getHp());
                 player.setHp(0);
             }
         }
+
+
+        Food.getFood().forEach(function(el) {
+
+            util.log({
+                x : movePlayer.getX(),
+                y : movePlayer.getY(),
+                w : movePlayer.getWidth(),
+                h : movePlayer.getHeight()
+            },{
+                x : el.x,
+                y : el.y,
+                w : Food.size,
+                h : Food.size
+            });
+
+            if(Collider.checkSimpleCollide({
+                    x : movePlayer.getX(),
+                    y : movePlayer.getY(),
+                    w : movePlayer.getWidth(),
+                    h : movePlayer.getHeight()
+                }, {
+                    x : el.x,
+                    y : el.y,
+                    w : Food.size,
+                    h : Food.size
+                })){
+
+                util.log('EAT ME!');
+
+            }
+        });
+
+        //check food eat
+
     });
 
     // Broadcast updated position to connected socket clients
