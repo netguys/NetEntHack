@@ -106,9 +106,8 @@ function onSocketConnection(client) {
 };
 
 function onGetFood() {
-
     util.log('create food');
-    this.emit("created food", {x : 1, y : 1});
+    this.emit("created food", Food.getFood());
 }
 
 // Socket client has disconnected

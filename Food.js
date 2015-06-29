@@ -1,25 +1,18 @@
 /**************************************************
  ** GAME Food CLASS
  **************************************************/
-var Food = function(startX, startY) {
-    var x = startX,
-        y = startY,
-        id;
+var Food = {
+    //var x = startX,
+    //    y = startY,
+    //    id;
 
-    // Getters and setters
-    var getX = function() {
-        return x;
-    };
+    food : [
+        {x: 1, y : 1},
+        {x: 200, y : 200}
+    ],
 
-    var getY = function() {
-        return y;
-    };
-
-    // Define which variables and methods can be accessed
-    return {
-        getX: getX,
-        getY: getY,
-        id: id
+    getFood : function() {
+        return this.food;
     }
 };
 
