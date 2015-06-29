@@ -195,20 +195,7 @@ function onMovePlayer(data) {
             }
         }
 
-
         Food.getFood().forEach(function(el) {
-
-            util.log({
-                x : movePlayer.getX(),
-                y : movePlayer.getY(),
-                w : movePlayer.getWidth(),
-                h : movePlayer.getHeight()
-            },{
-                x : el.x,
-                y : el.y,
-                w : Food.size,
-                h : Food.size
-            });
 
             if(Collider.checkSimpleCollide({
                     x : movePlayer.getX(),
