@@ -23,6 +23,10 @@ function initGame() {
             view: 'PlayerView',
             model: 'PlayerModel'
         },
+        'food' : {
+            controller: 'FoodController',
+            view: 'FoodView'
+        },
         'userInput': {
             controller: 'UserInputController'
         },
