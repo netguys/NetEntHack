@@ -48,10 +48,10 @@ function initGame() {
 
     //console.log('before start');
 
-    //initSound(moduleLoader._modules.sound, "json/audio.json",
-    //    function() {
+    initSound(moduleLoader._modules.sound, "json/audio.json",
+        function() {
     //        moduleLoader._modules.background.fireEvent("playSound", {soundID: "ambiance", loop: true});
-    //    });
+        });
 
     Render.start();
 }
